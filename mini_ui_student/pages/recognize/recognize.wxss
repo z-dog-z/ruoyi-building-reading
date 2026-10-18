@@ -1,0 +1,50 @@
+.page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 0 32rpx 60rpx;
+  box-sizing: border-box;
+}
+.back {
+  position: fixed;
+  left: 24rpx;
+  z-index: 10;
+  width: 72rpx;
+  height: 72rpx;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back__arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-left: 4rpx solid #333;
+  border-bottom: 4rpx solid #333;
+  transform: rotate(45deg);
+  margin-left: 6rpx;
+}
+.title { margin-bottom: 48rpx; text-align: center; }
+.title__main { display: block; font-size: 48rpx; font-weight: 600; color: #222; }
+.title__sub { display: block; margin-top: 14rpx; font-size: 28rpx; color: #888; }
+.placeholder {
+  height: 640rpx;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 36rpx; border: 2rpx dashed #ccc; border-radius: 20rpx; background-color: #fff;
+}
+.placeholder__icon { width: 160rpx; height: 160rpx; }
+.placeholder__text { font-size: 34rpx; color: #666; }
+.preview {
+  width: 100%; height: 700rpx; background-color: #000; border-radius: 16rpx; overflow: hidden;
+  position: relative;
+}
+.preview__img { width: 100%; height: 100%; }
+.preview__hint {
+  position: absolute; bottom: 16rpx; right: 20rpx;
+  font-size: 22rpx; color: rgba(255,255,255,0.6);
+}
+.re-pick {
+  margin-top: 24rpx; text-align: center;
+  font-size: 28rpx; color: #666;
+}

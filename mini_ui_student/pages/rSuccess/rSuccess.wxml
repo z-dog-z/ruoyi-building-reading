@@ -1,0 +1,42 @@
+<view class="page" wx:if="{{spot}}">
+
+  <image class="cover" src="{{spot.pictureUrl}}" mode="aspectFill" />
+
+  <view class="info">
+    <view class="info__name">{{spot.name}}</view>
+    <view class="info__en">{{spot.englishName}}</view>
+  </view>
+
+  <!-- 景点导航 -->
+  <view class="nav-row" bindtap="onNav">
+    <view class="nav-row__left">
+      <view class="nav-row__icon"></view>
+      <text class="nav-row__label">景点导航</text>
+    </view>
+    <view class="lang-switch">
+      <view class="lang-switch__item lang-switch__item--active">中</view>
+      <view class="lang-switch__item">EN</view>
+    </view>
+  </view>
+
+  <!-- 建筑信息 -->
+  <view class="kv-list">
+    <view class="kv" wx:if="{{spot.address || spot.remarks}}">
+      <text class="kv__k">建筑地址</text>
+      <text class="kv__v">{{spot.address || spot.remarks || '山西农业大学'}}</text>
+    </view>
+    <view class="kv" wx:if="{{spot.chineseOpenTime}}">
+      <text class="kv__k">开放时间</text>
+      <text class="kv__v">{{spot.chineseOpenTime}}</text>
+    </view>
+    <view class="kv" wx:if="{{spot.ticket}}">
+      <text class="kv__k">门票信息</text>
+      <text class="kv__v">{{spot.ticket}}</text>
+    </view>
+  </view>
+
+  <!-- 开始阅读按钮 -->
+  <view class="btn" bindtap="onRead">开始阅读 · 了解更多</view>
+  <view class="btn btn--ghost" bindtap="onAgain">再拍一次</view>
+
+</view>

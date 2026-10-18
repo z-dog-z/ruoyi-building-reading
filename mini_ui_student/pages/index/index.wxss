@@ -1,0 +1,48 @@
+.page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* ==================== 页面容器 ==================== */
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+/* 隐藏原有的登录 UI（bg 组件会全屏覆盖） */
+.login-hidden {
+  position: absolute;
+  top: -9999rpx;
+  left: -9999rpx;
+  visibility: hidden;
+}
+
+/* 以下是你原有的样式，可以保留或删掉 */
+.card {
+  padding: 40rpx;
+}
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20rpx;
+}
+.desc {
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 20rpx;
+}
+.status {
+  font-size: 28rpx;
+  color: #13ce66;
+  display: block;
+  margin-bottom: 20rpx;
+}

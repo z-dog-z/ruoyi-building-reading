@@ -1,0 +1,24 @@
+{
+  "description": "学生小程序私有配置，不包含业务页面和真实凭证",
+  "condition": {},
+  "projectname": "mini_ui_student",
+  "setting": {
+    "urlCheck": false,
+    "compileHotReLoad": true,
+    "ignoreDevUnusedFiles": true,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showShadowRootInWxmlPanel": false,
+    "useStaticServer": true,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "checkInvalidKey": true,
+    "bigPackageSizeSupport": false
+  },
+  "libVersion": "3.17.2"
+}

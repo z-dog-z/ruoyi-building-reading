@@ -1,0 +1,150 @@
+/* components/bg/bg.wxss */
+
+/* 整个组件固定铺满屏幕，超出部分裁掉（平移时不出现滚动条） */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* ==================== 阶段一：小圆圈 ==================== */
+
+.circle-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background-color: #fff;
+}
+
+/* 屏幕正中央的小圆圈：宽高相等 240rpx，圆角 50%。白底上用深色边框 */
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240rpx;
+  height: 240rpx;
+  margin-left: -120rpx;
+  margin-top: -120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4rpx solid #d4a64a;
+  box-shadow: 0 0 30rpx rgba(212, 166, 74, 0.2);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.circle__swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.circle__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==================== 阶段二：全屏可滑动探索界面 ==================== */
+
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #fff;
+}
+
+/* 前景 swiper 透明，露出白色背景 */
+.stage__swiper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* 每一张图等高占满整屏；宽图从左边开始摆放，再靠 translateX 平移展示 */
+.stage__slide {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+}
+
+.stage__img {
+  display: block;
+  flex: none;
+  will-change: transform;
+}
+
+/* ==================== 右上角四方格组件 ==================== */
+
+.grid-btn {
+  position: absolute;
+  right: 24rpx;
+  z-index: 30;
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 18rpx;
+}
+
+.grid-btn__pane {
+  display: flex;
+  flex-wrap: wrap;
+  width: 36rpx;
+}
+
+.grid-btn__cell {
+  width: 14rpx;
+  height: 14rpx;
+  margin: 2rpx;
+  border-radius: 3rpx;
+  background-color: #fff;
+}
+
+/* ==================== 开始探索按钮 ==================== */
+
+.explore {
+  position: absolute;
+  left: 50%;
+  bottom: 210rpx;
+  transform: translateX(-50%);
+  z-index: 30;
+  min-width: 340rpx;
+  padding: 22rpx 0;
+  text-align: center;
+  font-size: 34rpx;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 2rpx solid #d4a64a;
+  border-radius: 999rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.15);
+}
+
+.brand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 146rpx;
+  z-index: 30;
+  text-align: center;
+  font-size: 30rpx;
+  color: #555;
+}

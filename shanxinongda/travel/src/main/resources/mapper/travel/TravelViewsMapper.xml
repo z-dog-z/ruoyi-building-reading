@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelViewsMapper">
+    <insert id="insertViews">
+        insert into travel_views
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="time != null">time,</if>
+            <if test="eventType != null">event_type,</if>
+            <if test="source != null and source != ''">source,</if>
+            <if test="sourceDetail != null and sourceDetail != ''">source_detail,</if>
+            <if test="pageName != null and pageName != ''">page_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="eventType != null">#{eventType},</if>
+            <if test="source != null and source != ''">#{source},</if>
+            <if test="sourceDetail != null and sourceDetail != ''">#{sourceDetail},</if>
+            <if test="pageName != null and pageName != ''">#{pageName},</if>
+        </trim>
+    </insert>
+
+</mapper>

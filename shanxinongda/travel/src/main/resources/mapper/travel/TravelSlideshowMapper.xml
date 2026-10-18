@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelSlideshowMapper">
+
+    <select id="slideshowRandom" resultType="com.pz.travel.domain.TravelSlideshow">
+       select * from travel_slideshow where status=1
+       order by rand() LIMIT 1 ;
+    </select>
+
+    <delete id="deleteSlideshow" parameterType="Long">
+        delete from travel_slideshow where id=#{id}
+    </delete>
+
+    <select id="listAllActive" resultType="com.pz.travel.domain.TravelSlideshow">
+       select * from travel_slideshow where status=1 order by create_time desc
+    </select>
+</mapper>

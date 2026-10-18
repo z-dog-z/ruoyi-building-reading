@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelRecognitionLibraryMapper">
+    <!--根据名称搜索-->
+    <select id="selectTravelRecognitionLibraryByName" resultType="com.pz.travel.domain.TravelRecognitionLibrary">
+        select id, filename, url, module_detail_id, source, cont_sign, is_storage, storage_time, create_by, create_time from travel_recognition_library
+        <where>
+            <if test="filename !=null and filename !=''"> and filename like concat('%', #{filename}, '%')</if>
+        </where>
+    </select>
+    
+    <!--新增-->
+    <insert id="insertTravelRecognitionLibrary" parameterType="com.pz.travel.domain.TravelRecognitionLibrary">
+        insert into travel_recognition_library
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="filename != null and filename != ''">filename,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="moduleDetailId != null">module_detail_id,</if>
+            <if test="source != null">source,</if>
+            <if test="contSign != null">cont_sign,</if>
+            <if test="isStorage != null">is_storage,</if>
+            <if test="storageTime != null">storage_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="filename != null and filename != ''">#{filename},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="moduleDetailId != null">#{moduleDetailId},</if>
+            <if test="source != null">#{source},</if>
+            <if test="contSign != null">#{contSign},</if>
+            <if test="isStorage != null">#{isStorage},</if>
+            <if test="storageTime != null">#{storageTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <!--批量删除-->
+    <delete id="deleteTravelRecognitionLibraryByIds">
+        delete from travel_recognition_library where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            ${id}
+        </foreach>
+    </delete>
+
+</mapper>

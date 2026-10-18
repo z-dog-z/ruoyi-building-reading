@@ -1,0 +1,92 @@
+<!-- components/bg/bg.wxml -->
+<view class="bg-container">
+
+  <!-- ==================== 阶段二：全屏可滑动探索界面 ==================== -->
+  <view class="stage" wx:if="{{expanded}}">
+
+    <!-- 纯黑背景，不再跟随轮播，彻底避免闪黑 -->
+    <!-- 底部轻微渐变，仅用于让按钮文字更清晰，不拦截手势 -->
+    <view class="stage__shade"></view>
+
+    <!-- 前景：原生 swiper，手指可以左右滑动，同时自动轮播 -->
+    <swiper
+      class="stage__swiper"
+      current="{{activeIndex}}"
+      autoplay="{{true}}"
+      interval="{{stageInterval}}"
+      duration="500"
+      circular="{{true}}"
+      indicator-dots="{{false}}"
+      bindchange="onStageChange"
+    >
+      <swiper-item wx:for="{{bgList}}" wx:key="url">
+        <view class="stage__slide">
+          <!-- 等高：高度固定等于屏幕高；宽度：按图片真实比例自适应；bindload / binderror -->
+          <image
+            class="stage__img"
+            src="{{item.url}}"
+            mode="aspectFill"
+            style="height:{{winHeight}}px;width:{{item.renderWidth}}px"
+            animation="{{panAnimations[index]}}"
+            data-phase="stage"
+            data-index="{{index}}"
+            bindload="onImageLoad"
+            binderror="onImageError"
+          />
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 右上角四方格组件 -->
+    <view class="grid-btn" style="top:{{gridTop}}px" bindtap="onGridTap">
+      <view class="grid-btn__pane">
+        <view class="grid-btn__cell"></view>
+        <view class="grid-btn__cell"></view>
+        <view class="grid-btn__cell"></view>
+        <view class="grid-btn__cell"></view>
+      </view>
+    </view>
+
+    <!-- 开始探索：滑到哪张就探索哪张 -->
+    <view class="explore" bindtap="onExploreTap">开始探索</view>
+    <text class="brand">山西农业大学</text>
+  </view>
+
+  <!-- ==================== 阶段一：屏幕中央小圆圈轮播 ==================== -->
+  <view class="circle-mask" wx:if="{{!expanded}}">
+    <view class="circle" animation="{{circleAnimation}}">
+      <swiper
+        class="circle__swiper"
+        autoplay="{{true}}"
+        interval="{{circleInterval}}"
+        duration="500"
+        circular="{{true}}"
+        indicator-dots="{{false}}"
+        bindchange="onCircleChange"
+      >
+        <swiper-item wx:for="{{bgList}}" wx:key="url">
+          <image
+            class="circle__img"
+            src="{{item.url}}"
+            mode="aspectFill"
+            data-phase="circle"
+            data-index="{{index}}"
+            bindload="onImageLoad"
+            binderror="onImageError"
+          />
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- 右上角四方格组件 -->
+    <view class="grid-btn" style="top:{{gridTop}}px" bindtap="onGridTap">
+      <view class="grid-btn__pane">
+        <view class="grid-btn__cell"></view>
+        <view class="grid-btn__cell"></view>
+        <view class="grid-btn__cell"></view>
+        <view class="grid-btn__cell"></view>
+      </view>
+    </view>
+  </view>
+
+</view>

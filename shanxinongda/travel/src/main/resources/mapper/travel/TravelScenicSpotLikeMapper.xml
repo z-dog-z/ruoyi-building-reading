@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelScenicSpotLikesMapper">
+
+    <!--点赞-->
+    <!--判断是否点赞-->
+    <select id="isLikes" resultType="java.lang.Integer">
+        select count(1) FROM `travel_scenic_spot_like`
+        where scenic_spot_id=#{scenicSpotId} and user_id=#{userId};
+    </select>
+
+    <!--插入点赞数据-->
+    <insert id="insertLikes" parameterType="com.pz.travel.domain.TravelScenicSpotLikes">
+        insert into travel_scenic_spot_like
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null">id,</if>
+            <if test="scenicSpotId!=null">scenic_spot_id,</if>
+            <if test="userId!=null">user_id,</if>
+            <if test="createTime!=null">create_time,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="id !=null">#{id},</if>
+            <if test="scenicSpotId!=null">#{scenicSpotId},</if>
+            <if test="userId!=null">#{userId},</if>
+            <if test="createTime!=null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <!--取消点赞-->
+    <delete id="deletelLikes" parameterType="com.pz.travel.domain.TravelScenicSpotLikes">
+        delete from travel_scenic_spot_like
+        where scenic_spot_id=#{scenicSpotId} and user_id=#{userId}
+    </delete>
+
+</mapper>

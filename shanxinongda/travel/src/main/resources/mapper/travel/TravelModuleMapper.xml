@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelModuleMapper">
+
+    <!---->
+    <select id="selectTravelModule" resultType="com.pz.travel.domain.TravelModule">
+        select * from travel_module
+    </select>
+
+    <!--新增栏目-->
+    <insert id="insertTravelModule" parameterType="com.pz.travel.domain.TravelModule">
+        insert into travel_module
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="status != null">status,</if>
+            <if test="flag != null">flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="status != null">#{status},</if>
+            <if test="flag != null">#{flag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+    <!--删除栏目-->
+    <delete id="deleteTravelModule" parameterType="com.pz.travel.domain.TravelModule">
+        delete from travel_module
+        where id=#{id}
+    </delete>
+
+</mapper>

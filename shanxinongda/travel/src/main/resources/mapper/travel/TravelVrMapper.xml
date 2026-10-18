@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelVrMapper">
+    <!--返回状态码为1的VR列表-->
+    <select id="selectTravelVr" resultType="com.pz.travel.domain.TravelVr">
+        select * from travel_vr
+        where status=1
+    </select>
+
+    <!--修改VR名称和封面图-->
+    <update id="modifyVr">
+        update travel_vr
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name!=null and name!=''">name= #{name},</if>
+            <if test="name == null or name == ''">name = null,</if>
+
+            <if test="identify!=null and identify!=''">identify= #{identify},</if>
+            <if test="identify == null or identify == ''">identify = null,</if>
+
+            <if test="vrCover!=null and vrCover!=''">vr_cover= #{vrCover},</if>
+            <if test="vrCover == null or vrCover == ''">vr_cover = null,</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!--通过名称搜索VR-->
+    <select id="selectTravelVrByName" resultType="com.pz.travel.domain.TravelVr">
+        select * from travel_vr
+        <where>
+            <if test="name !=null and name !=''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+
+    <!--选择是否启用VR，修改状态-->
+    <update id="modifyVrStatus"  >
+        update travel_vr a ,travel_module_detail  b   set b.status=#{status}
+      where a.id  = b.vr_id and   a.id=#{id}
+    </update>
+
+    <update id="deleteVrRelation">
+        update travel_module_detail
+        set vr_id = null,
+            is_vr = 0
+        where vr_id = #{id}
+    </update>
+</mapper>

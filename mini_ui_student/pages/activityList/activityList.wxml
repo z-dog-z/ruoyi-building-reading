@@ -1,0 +1,26 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+  <block wx:elif="{{activities.length > 0}}">
+    <view class="card"
+      wx:for="{{activities}}" wx:key="id"
+      data-id="{{item.id}}" bindtap="onTap"
+    >
+      <image
+        wx:if="{{item.pictureUrl || item.picture_url}}"
+        class="card__cover"
+        src="{{item.pictureUrl || item.picture_url}}"
+        mode="widthFix"
+      />
+      <image
+        wx:else
+        class="card__cover card__cover--fallback"
+        src="/images/icons/喇叭.png"
+        mode="aspectFit"
+      />
+      <view class="card__body">
+        <text class="card__name">{{item.name}}</text>
+      </view>
+    </view>
+  </block>
+  <view wx:else class="empty">暂无活动</view>
+</view>

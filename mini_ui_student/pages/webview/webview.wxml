@@ -1,0 +1,2 @@
+<web-view wx:if="{{url}}" src="{{url}}"></web-view>
+<view class="tip" wx:else>暂无内容</view>

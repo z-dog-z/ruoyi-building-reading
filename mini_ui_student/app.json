@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/videos/videos",
+    "pages/recognize/recognize",
+    "pages/rSuccess/rSuccess",
+    "pages/rFail/rFail",
+    "pages/building/building",
+    "pages/detail/detail",
+    "pages/humanDetail/humanDetail",
+    "pages/webview/webview",
+    "pages/activityList/activityList"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f6f7fb",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "建筑可阅读",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "拍照识别时需要获取您的位置信息"
+    },
+    "scope.camera": {
+      "desc": "拍照识别建筑时需要使用摄像头或相册"
+    }
+  },
+  "requiredPrivateInfos": ["chooseLocation", "getLocation"],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

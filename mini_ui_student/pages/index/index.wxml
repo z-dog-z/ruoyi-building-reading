@@ -1,0 +1,11 @@
+<view class="page">
+  <!-- ==================== 启动页 bg 组件（全屏覆盖） ==================== -->
+  <bg />
+
+  <!-- ==================== 原有内容，被 bg 遮住，仅用于静默登录 ==================== -->
+  <!-- 如果你不需要在首页做登录，可以整块删掉 -->
+  <view class="login-hidden">
+    <text class="status">{{status}}</text>
+    <button type="primary" bindtap="retryLogin">重新登录</button>
+  </view>
+</view>

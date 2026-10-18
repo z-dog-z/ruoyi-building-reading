@@ -1,0 +1,7 @@
+/* pages/webview/webview.wxss - VR 漫游等外部 H5 承载页 */
+.tip {
+  margin-top: 200rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #999;
+}

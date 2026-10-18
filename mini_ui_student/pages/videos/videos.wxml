@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="grid">
+    <view class="card"
+      wx:for="{{videos}}" wx:key="id"
+      data-id="{{item.id}}" bindtap="onTap"
+    >
+      <image class="card__cover" src="{{item.cover}}" mode="aspectFill" />
+      <view class="card__body">
+        <text class="card__name">{{item.name}}</text>
+        <text class="card__tittle" wx:if="{{item.tittle}}">{{item.tittle}}</text>
+        <view class="card__count">👁 {{item.count || 0}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="end" wx:if="{{videos.length > 0}}">没有更多了~</view>
+</view>

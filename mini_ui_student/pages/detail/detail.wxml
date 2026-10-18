@@ -1,0 +1,140 @@
+<view class="page">
+
+  <!-- ==================== 建筑/活动详情 ==================== -->
+  <block wx:if="{{type !== 'video' && spot}}">
+
+    <!-- 头图 -->
+    <view class="hero">
+      <image class="hero__img" src="{{spot.pictureUrl || spot.backgroundCover}}" mode="aspectFill" />
+    </view>
+
+    <!-- 标题卡 -->
+    <view class="titlecard">
+      <view class="titlecard__name">{{lang === 'en' ? (spot.englishName || spot.name) : spot.name}}</view>
+      <view class="titlecard__en" wx:if="{{lang === 'zh' && spot.englishName}}">{{spot.englishName}}</view>
+    </view>
+
+    <!-- 功能按钮 / 中英文切换 / 信息表  —— 活动类型不显示 -->
+    <block wx:if="{{type !== 'activity'}}">
+      <view class="actions">
+        <view class="action" bindtap="onAudio">
+          <view class="ai ai-audio">
+            <view class="ai-audio__band"></view>
+            <view class="ai-audio__cup ai-audio__cup--l"></view>
+            <view class="ai-audio__cup ai-audio__cup--r"></view>
+          </view>
+          <text class="action__label">{{labels.audio}}</text>
+        </view>
+        <view class="action" bindtap="onVr">
+          <view class="ai ai-vr">
+            <view class="ai-vr__body"></view>
+            <view class="ai-vr__lens ai-vr__lens--l"></view>
+            <view class="ai-vr__lens ai-vr__lens--r"></view>
+          </view>
+          <text class="action__label">{{labels.vr}}</text>
+        </view>
+        <view class="action" bindtap="onNav">
+          <view class="ai ai-nav">
+            <view class="ai-nav__pin"></view>
+            <view class="ai-nav__dot"></view>
+          </view>
+          <text class="action__label">{{labels.nav}}</text>
+        </view>
+      </view>
+
+      <view class="langbar">
+        <view class="langbar__switch">
+          <view class="langbar__item {{lang === 'zh' ? 'langbar__item--active' : ''}}" data-lang="zh" bindtap="onLangTap">中</view>
+          <view class="langbar__item {{lang === 'en' ? 'langbar__item--active' : ''}}" data-lang="en" bindtap="onLangTap">EN</view>
+        </view>
+      </view>
+
+      <view class="kv-list">
+        <view class="kv" wx:if="{{lang === 'en' ? (spot.englishLevel || spot.level) : spot.level}}">
+          <text class="kv__k">{{labels.level}}</text>
+          <text class="kv__v">{{lang === 'en' ? (spot.englishLevel || spot.level) : spot.level}}</text>
+        </view>
+        <view class="kv" wx:if="{{lang === 'en' ? (spot.address || spot.remarks) : (spot.remarks || spot.address)}}">
+          <text class="kv__k">{{labels.address}}</text>
+          <text class="kv__v">{{lang === 'en' ? (spot.address || spot.remarks) : (spot.remarks || spot.address)}}</text>
+        </view>
+        <view class="kv" wx:if="{{spot.chineseOpenTime || spot.englishOpenTime}}">
+          <text class="kv__k">{{labels.openTime}}</text>
+          <text class="kv__v">{{lang === 'en' ? (spot.englishOpenTime || spot.chineseOpenTime) : (spot.chineseOpenTime || spot.englishOpenTime)}}</text>
+        </view>
+        <view class="kv" wx:if="{{spot.ticket || spot.englishTicket}}">
+          <text class="kv__k">{{labels.ticket}}</text>
+          <text class="kv__v">{{lang === 'en' ? (spot.englishTicket || spot.ticket) : (spot.ticket || spot.englishTicket)}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- 历史人物 -->
+    <view class="humans" wx:if="{{humans.length}}">
+      <view class="humans__title">{{labels.humans}}</view>
+      <view class="humans__list">
+        <view class="human" wx:for="{{humans}}" wx:key="id" data-index="{{index}}" bindtap="onHumanTap">
+          <image class="human__photo" src="{{item.photo}}" mode="aspectFill" wx:if="{{item.photo}}" />
+          <view class="human__photo human__photo--ph" wx:else>
+            <view class="ph-icon"></view>
+          </view>
+          <text class="human__name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 正文 -->
+    <view class="content" wx:if="{{contentHtml}}">
+      <rich-text nodes="{{contentHtml}}"></rich-text>
+    </view>
+  </block>
+
+  <!-- ==================== 视频详情 ==================== -->
+  <block wx:if="{{type === 'video' && video}}">
+    <video
+      wx:if="{{video.video}}"
+      class="player"
+      src="{{video.video}}"
+      poster="{{video.cover}}"
+      controls="{{true}}"
+      show-center-play-btn="{{true}}"
+      autoplay="{{false}}"
+    ></video>
+    <image wx:else class="hero__img" src="{{video.cover}}" mode="aspectFill" />
+
+    <view class="titlecard titlecard--video">
+      <view class="titlecard__name">{{video.name}}</view>
+      <view class="titlecard__en" wx:if="{{video.tittle}}">{{video.tittle}}</view>
+    </view>
+    <view class="kv-list">
+      <view class="kv">
+        <text class="kv__k">{{labels.views}}</text>
+        <text class="kv__v">{{video.count || 0}}</text>
+      </view>
+    </view>
+
+    <!-- 视频描述文字 -->
+    <view wx:if="{{video.content}}" class="video-desc">{{video.content}}</view>
+
+    <!-- 更多精彩内容 -->
+    <view class="related" wx:if="{{relatedVideos.length > 0}}">
+      <view class="related__head">
+        <text class="related__title">更多精彩内容</text>
+      </view>
+      <view class="related__grid">
+        <view class="related__card"
+          wx:for="{{relatedVideos}}" wx:key="id"
+          data-id="{{item.id}}" bindtap="onRelatedVideoTap"
+        >
+          <image class="related__cover" src="{{item.cover}}" mode="aspectFill" />
+          <view class="related__body">
+            <text class="related__name">{{item.name}}</text>
+            <text class="related__tittle" wx:if="{{item.tittle}}">{{item.tittle}}</text>
+            <text class="related__count">👁 {{item.count || 0}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</view>

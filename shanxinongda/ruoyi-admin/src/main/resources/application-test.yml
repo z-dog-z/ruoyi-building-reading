@@ -1,0 +1,58 @@
+# 数据源配置
+spring:
+  datasource:
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:mysql://127.0.0.1:3306/travel?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&autoReconnect=true&useSSL=false
+        username: webuser
+        password: 请填写你自己的数据库密码
+  # redis 配置
+  redis:
+    # 地址
+    host: 请填写你自己的redis地址
+    # 端口，默认为6379
+    port: 6379
+    # 密码
+    password: 请填写你自己的redis密码
+    database: 3
+# 微信小程序相关配置
+wx:
+  miniapp:
+    configs:
+      - appid: wx6eaeabceda8fb957
+        secret: 请填写你自己的小程序secret
+        token: 请填写你自己的小程序token
+        aesKey: 请填写你自己的小程序aesKey
+        msgDataFormat: JSON
+  mp:
+    useRedis: true
+    configs:
+      - appId: wxc2bbb6696a04ecd2 # 第一个公众号的appid
+        secret: 请填写你自己的公众号secret # 公众号的appsecret
+        token: test # 接口配置里的Token值
+        aesKey: test # 接口配置里的EncodingAESKey值
+  pay:
+    configs:
+      - appId: wxc2bbb6696a04ecd2 #微信h5支付
+        mchId: 请填写你自己的商户号
+        mchKey: 请填写你自己的商户密钥
+        subAppId: #服务商模式下的子商户公众账号ID
+        subMchId: #服务商模式下的子商户号
+        keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+      - appId: wx6eaeabceda8fb957 #微信小程序支付
+        mchId: 请填写你自己的商户号
+        mchKey: 请填写你自己的商户密钥
+        subAppId: #服务商模式下的子商户公众账号ID
+        subMchId: #服务商模式下的子商户号
+        keyPath: # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+# 百度图片搜索
+baidu:
+  app-id: 请填写你自己的百度app-id
+  api-key: 请填写你自己的百度api-key
+  secret-key: 请填写你自己的百度secret-key
+travel:
+
+  path: /data/xuhui_travel
+  vrUrl: https://ar-travel-file.1jiaohu.com/vtour/tour.html
+  appointment:

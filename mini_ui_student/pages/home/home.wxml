@@ -1,0 +1,96 @@
+<view class="home">
+
+  <!-- 隐藏的 Canvas 2D：首页拍照识别压缩图片用 -->
+  <canvas
+    type="2d"
+    id="compress"
+    style="position:fixed;left:-9999px;top:-9999px;width:200px;height:300px"
+  ></canvas>
+
+  <!-- ============ 顶部轮播 ============ -->
+  <view class="banner">
+    <swiper
+      class="banner__swiper"
+      current="{{currentBanner}}"
+      autoplay="{{true}}"
+      interval="3500"
+      duration="500"
+      circular="{{true}}"
+      indicator-dots="{{false}}"
+      bindchange="onBannerChange"
+    >
+      <swiper-item
+        wx:for="{{banners}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onBannerTap"
+      >
+        <image class="banner__img" src="{{item.url}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+    <view class="banner__dots">
+      <view
+        wx:for="{{banners}}"
+        wx:key="id"
+        wx:for-index="i"
+        class="banner__dot {{i === currentBanner ? 'banner__dot--active' : ''}}"
+      ></view>
+    </view>
+  </view>
+
+  <!-- ============ 为您推荐 | 酷跑活动 ============ -->
+  <view class="card" bindtap="onActivityTap">
+    <image class="card__icon" src="/images/icons/喇叭.png" mode="aspectFit" />
+    <text class="card__tag">为您推荐</text>
+    <text class="card__sep">|</text>
+    <text class="card__title">{{activity ? activity.name : '酷跑活动'}}</text>
+    <text class="card__arrow">›</text>
+  </view>
+
+  <!-- ============ 热剧游山农大 ============ -->
+  <view class="section">
+    <view class="section__head">
+      <text class="section__title">热剧游山农大</text>
+      <text class="section__more" bindtap="onVideoAll">查看全部 ›</text>
+    </view>
+    <scroll-view class="section__scroll" scroll-x="{{true}}" enable-flex="{{true}}">
+      <view class="video-card"
+        wx:for="{{videos}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onVideoTap"
+      >
+        <image class="video-card__cover" src="{{item.cover}}" mode="aspectFill" />
+        <text class="video-card__name">{{item.name}}</text>
+        <text class="video-card__tittle">{{item.tittle}}</text>
+        <view class="video-card__count">
+          <text>{{item.count || 0}} 次</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- ============ 拍照识别 & 进入建筑可阅读 ============ -->
+  <view class="entries">
+
+    <view class="entry-card" bindtap="onRecognize">
+      <image class="entry-card__cover" src="{{recognizeCover}}" mode="aspectFill" />
+      <view class="entry-card__body">
+        <image class="entry-card__icon" src="/images/icons/相机.png" mode="aspectFit" />
+        <text class="entry-card__title">拍照识别</text>
+      </view>
+    </view>
+
+    <view class="entry-card" bindtap="onBuilding">
+      <image class="entry-card__cover" src="{{buildingCover}}" mode="aspectFill" />
+      <view class="entry-card__body">
+        <image class="entry-card__icon" src="/images/icons/建筑2.png" mode="aspectFit" />
+        <text class="entry-card__title">进入建筑可阅读</text>
+      </view>
+    </view>
+
+  </view>
+
+  <text class="footer">技术支持@碰撞科技</text>
+
+</view>

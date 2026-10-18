@@ -1,0 +1,91 @@
+/* pages/humanDetail/humanDetail.wxss */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #2d5f3f 0%, #4a8c5c 35%, #e8d98a 100%);
+  box-sizing: border-box;
+  padding-bottom: 60rpx;
+}
+
+/* ==================== 顶部人物 ==================== */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+  padding: 32rpx 40rpx 48rpx;
+}
+.header__photo {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+  display: block;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.15);
+}
+.header__photo--ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header__info { flex: 1; }
+.header__name {
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+  letter-spacing: 6rpx;
+}
+.header__date {
+  margin-top: 14rpx;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 2rpx;
+}
+
+/* ==================== 简介白块 ==================== */
+.card {
+  background-color: #ffffff;
+  border-radius: 28rpx;
+  padding: 40rpx 36rpx 48rpx;
+  margin: 0 32rpx;
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.12);
+}
+.card__body {
+  font-size: 34rpx;
+  color: #333;
+  line-height: 2.1;
+  word-break: break-all;
+}
+.card__body p { margin-bottom: 24rpx; }
+.card__body p:last-child { margin-bottom: 0; }
+.card__body br { display: block; margin: 12rpx 0; }
+.card__body .sub-h {
+  margin: 36rpx 0 20rpx !important;
+}
+.card__empty {
+  text-align: center;
+  font-size: 28rpx;
+  color: #aaa;
+  padding: 40rpx 0;
+}
+
+/* ==================== 占位 ==================== */
+.ph-icon {
+  width: 50rpx;
+  height: 50rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+}
+.ph-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8rpx;
+  height: 28rpx;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 4rpx;
+}

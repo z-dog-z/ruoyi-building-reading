@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BookUserMapper">
+
+	<resultMap type="BookUser" id="BookUserResult">
+		<id     property="id"       column="id"      />
+		<result property="phone"       column="phone"      />
+		<result property="createBy"     column="create_by"    />
+		<result property="createTime"   column="create_time"  />
+		<result property="updateBy"     column="update_by"    />
+		<result property="updateTime"   column="update_time"  />
+	</resultMap>
+
+	<select id="selectUserByPhone" parameterType="String" resultMap="BookUserResult">
+	    select * from book_user bu
+		where bu.phone = #{phone}
+	</select>
+	
+	<insert id="insertUser" parameterType="BookUser" useGeneratedKeys="true" keyProperty="id">
+ 		insert into book_user(
+ 			<if test="id != null and id != 0">id,</if>
+ 			<if test="phone != null and phone != ''">phone,</if>
+ 			<if test="createBy != null and createBy != ''">create_by,</if>
+		create_time
+ 		)values(
+ 			<if test="id != null and id != ''">#{id},</if>
+ 			<if test="phone != null and phone != ''">#{phone},</if>
+ 			<if test="createBy != null and createBy != ''">#{createBy},</if>
+		sysdate()
+ 		)
+	</insert>
+	
+	<update id="updateUser" parameterType="BookUser">
+ 		update book_user
+ 		<set>
+ 			<if test="phone != null and phone != ''">phone = #{phone},</if>
+ 			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+			update_time = sysdate()
+ 		</set>
+ 		where id = #{id}
+	</update>
+	
+</mapper> 

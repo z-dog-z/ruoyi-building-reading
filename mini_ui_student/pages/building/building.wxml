@@ -1,0 +1,79 @@
+<view class="page">
+
+  <!-- ==================== 搜索栏 ==================== -->
+  <view class="searchbar">
+    <view class="searchbar__near" bindtap="onNearTap">
+      <view class="icon-loc">
+        <view class="icon-loc__dot"></view>
+      </view>
+      <text class="searchbar__near-text">离我最近</text>
+    </view>
+    <input
+      class="searchbar__input"
+      placeholder="请输入关键字搜索建筑"
+      placeholder-class="searchbar__ph"
+      value="{{keyword}}"
+      confirm-type="search"
+      bindinput="onInput"
+      bindconfirm="onSearch"
+    />
+    <view class="searchbar__btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- ==================== 分类标签 ==================== -->
+  <scroll-view class="tabs" scroll-x="{{true}}" enable-flex="{{true}}">
+    <view
+      class="tab {{index === activeTab ? 'tab--active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="name"
+      wx:for-index="index"
+      data-index="{{index}}"
+      bindtap="onTabTap"
+    >
+      <text>{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- ==================== 建筑卡片瀑布流（左右两列） ==================== -->
+  <view class="waterfall">
+    <view class="waterfall__col">
+      <view
+        class="card"
+        wx:for="{{colLeft}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onSpotTap"
+      >
+        <view class="card__imgwrap">
+          <image class="card__img" src="{{item.cover}}" mode="widthFix" lazy-load="{{true}}" />
+        </view>
+        <view class="card__info">
+          <text class="card__name">{{item.name}}</text>
+          <text class="card__en" wx:if="{{item.englishName}}">{{item.englishName}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="waterfall__col">
+      <view
+        class="card"
+        wx:for="{{colRight}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onSpotTap"
+      >
+        <view class="card__imgwrap">
+          <image class="card__img" src="{{item.cover}}" mode="widthFix" lazy-load="{{true}}" />
+        </view>
+        <view class="card__info">
+          <text class="card__name">{{item.name}}</text>
+          <text class="card__en" wx:if="{{item.englishName}}">{{item.englishName}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="loading" wx:if="{{loading && spots.length > 0}}">加载中...</view>
+  <view class="empty" wx:if="{{noMore && spots.length === 0}}">暂无数据</view>
+  <view class="end" wx:if="{{noMore && spots.length > 0}}">没有更多了~</view>
+</view>

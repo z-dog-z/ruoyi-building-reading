@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelSubClassificationMapper">
+    <!--获取分类-->
+    <select id="selectTravelSubclassfication" resultType="com.pz.travel.domain.TravelSubClassification">
+        select * from travel_sub_classification
+        <where>
+            <if test="moduleId != null">module_id = #{moduleId}</if>
+            <if test="status != null">and status = #{status}</if>
+        </where>
+        order by order_by
+    </select>
+
+    <!--新增分类-->
+    <insert id="insertTravelSubClassification" parameterType="com.pz.travel.domain.TravelSubClassification">
+        insert into travel_sub_classification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="status != null">status,</if>
+            <if test="moduleId != null">module_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="orderBy!=null">order_by,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="status != null">#{status},</if>
+            <if test="moduleId != null">#{moduleId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="orderBy !=null">#{orderBy},</if>
+        </trim>
+    </insert>
+
+    <!--编辑分类-->
+    <update id="updateTravelSubClassfication" >
+        update travel_sub_classification
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name!=null and name!=''">name= #{name},</if>
+            <if test="orderBy!=null">order_by= #{orderBy},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <!--删除分类-->
+    <delete id="deleteTravelSubClassficationById">
+        delete from travel_sub_classification
+        where id=#{id}
+    </delete>
+
+    <!--小程序获取二级分类名-->
+    <select id="getSubClassification" resultType="String">
+        select name from travel_sub_classification
+        order by id
+    </select>
+</mapper>

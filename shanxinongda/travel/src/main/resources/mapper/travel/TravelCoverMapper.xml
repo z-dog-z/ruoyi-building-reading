@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelCoverMapper">
+    <!--获取封面图片-->
+    <select id="getCoverPicture" parameterType="Integer" resultType="java.lang.String">
+        select picture_url from travel_cover where identity=${identity}
+    </select>
+
+    <!--修改图片-->
+    <update id="updateCoverPicture" parameterType="com.pz.travel.domain.TravelCover">
+        update travel_cover set picture_url=#{pictureUrl} where identity=${identity}
+    </update>
+</mapper>

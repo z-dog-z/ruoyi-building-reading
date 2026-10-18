@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelJointMapper">
+    <!--通过景点id查询该景点的分类-->
+    <select id="selectClassification" resultType="com.pz.travel.domain.TravelJoint">
+        select * from travel_joint where scenic_id=#{scenicId}
+    </select>
+
+    <!--通过分类查景点-->
+    <select id="selectScenicByClassificatin" parameterType="Long" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select DISTINCT a.* from travel_module_detail AS a INNER JOIN travel_joint AS b
+                ON a.id=b.scenic_id WHERE 1=1
+        <if test="classificationId!=null"> and b.classification_id=#{classificationId} </if>
+        order by inx
+    </select>
+
+    <insert id="insertTravelJoint" parameterType="java.util.ArrayList">
+        insert into travel_joint (id,scenic_id,classification_id) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.scenicId},#{item.classificationId})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        delete from travel_joint where classification_id=#{classificationId} and scenic_id=#{scenicId}
+    </delete>
+
+
+    <delete id="deleteClassification">
+        delete from travel_joint where classification_id=#{id}
+    </delete>
+
+    <delete id="deleteScenic">
+        delete from travel_joint where scenic_id=#{scenicId}
+    </delete>
+</mapper>

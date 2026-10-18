@@ -1,0 +1,391 @@
+/* pages/detail/detail.wxss - 建筑详情 */
+.page {
+  min-height: 100vh;
+  background-color: #f5f6f8;
+  padding-bottom: 60rpx;
+}
+
+/* ==================== 头图 ==================== */
+.hero {
+  width: 100%;
+  height: 520rpx;
+  position: relative;
+}
+.hero__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #eee;
+}
+
+/* ==================== 标题卡（上移压住头图） ==================== */
+.titlecard {
+  position: relative;
+  margin: -80rpx 28rpx 0;
+  padding: 32rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.06);
+}
+.titlecard__name {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #222;
+}
+.titlecard__en {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ==================== 功能按钮 ==================== */
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 40rpx 24rpx 16rpx;
+}
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+.action__label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* ---------- 线条图标（金色，96rpx 圆圈内） ---------- */
+.ai {
+  position: relative;
+  width: 96rpx;
+  height: 96rpx;
+  border: 2rpx solid #e0c88f;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* 语音导览：耳机 */
+.ai-audio__band {
+  position: absolute;
+  top: 26rpx; left: 50%;
+  margin-left: -26rpx;
+  width: 52rpx; height: 34rpx;
+  border: 4rpx solid #c9a24b;
+  border-bottom: none;
+  border-radius: 52rpx 52rpx 0 0;
+  box-sizing: border-box;
+}
+.ai-audio__cup {
+  position: absolute;
+  top: 56rpx;
+  width: 12rpx; height: 20rpx;
+  border: 4rpx solid #c9a24b;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+}
+.ai-audio__cup--l { left: 20rpx; }
+.ai-audio__cup--r { right: 20rpx; }
+
+/* VR漫游：VR眼镜 */
+.ai-vr__body {
+  position: absolute;
+  top: 32rpx; left: 50%;
+  margin-left: -30rpx;
+  width: 60rpx; height: 32rpx;
+  border: 4rpx solid #c9a24b;
+  border-radius: 14rpx;
+  box-sizing: border-box;
+}
+.ai-vr__lens {
+  position: absolute;
+  top: 39rpx;
+  width: 12rpx; height: 12rpx;
+  border: 4rpx solid #c9a24b;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.ai-vr__lens--l { left: 31rpx; }
+.ai-vr__lens--r { right: 31rpx; }
+
+/* 景点导航：定位针 */
+.ai-nav__pin {
+  position: absolute;
+  top: 24rpx; left: 50%;
+  margin-left: -14rpx;
+  width: 28rpx; height: 28rpx;
+  border: 4rpx solid #c9a24b;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-sizing: border-box;
+}
+.ai-nav__dot {
+  position: absolute;
+  top: 34rpx; left: 50%;
+  margin-left: -4rpx;
+  width: 8rpx; height: 8rpx;
+  background-color: #c9a24b;
+  border-radius: 50%;
+}
+
+/* ==================== 中/英切换 ==================== */
+.langbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 32rpx;
+  margin-top: 10rpx;
+}
+.langbar__switch {
+  display: flex;
+  border-radius: 999rpx;
+  overflow: hidden;
+  border: 2rpx solid #c9a24b;
+}
+.langbar__item {
+  width: 88rpx;
+  height: 60rpx;
+  line-height: 58rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #c9a24b;
+}
+.langbar__item--active {
+  background-color: #c9a24b;
+  color: #fff;
+}
+
+/* ==================== 建筑信息 ==================== */
+.kv-list {
+  padding: 0 32rpx;
+  margin-top: 24rpx;
+}
+.kv {
+  display: flex;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.kv__k {
+  width: 160rpx;
+  flex: none;
+  font-size: 28rpx;
+  color: #999;
+}
+.kv__v {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ==================== 历史人物 ==================== */
+.humans {
+  padding: 24rpx 32rpx 0;
+}
+.humans__title {
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #222;
+}
+.humans__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48rpx;
+}
+.human {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14rpx;
+  padding: 8rpx 16rpx;
+}
+.human__photo {
+  width: 168rpx;
+  height: 168rpx;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: block;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+.human__photo--ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-icon {
+  width: 44rpx;
+  height: 44rpx;
+  border: 3rpx solid #bbb;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.ph-icon::after {
+  content: '';
+  width: 6rpx;
+  height: 20rpx;
+  background-color: #bbb;
+  border-radius: 3rpx;
+  margin-top: -2rpx;
+}
+.human__name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ==================== 正文 / 视频 ==================== */
+.content {
+  padding: 32rpx;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.8;
+}
+/* 视频详情专用：不叠在图片上，作为正常标题 */
+.titlecard--video {
+  margin: 28rpx 28rpx 0;
+  padding: 0;
+  background: transparent;
+}
+.player {
+  width: 100%;
+  height: 420rpx;
+  margin-top: 0;
+}
+
+/* 视频描述文字 */
+.video-desc {
+  margin-top: 24rpx;
+  padding: 0 4rpx;
+  font-size: 28rpx;
+  color: #444;
+  line-height: 1.8;
+}
+
+/* ==================== 更多精彩内容（视频详情相关推荐） ==================== */
+.related {
+  margin-top: 40rpx;
+  padding-bottom: 60rpx;
+}
+.related__head {
+  margin-bottom: 20rpx;
+}
+.related__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #222;
+}
+.related__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.related__card {
+  width: 48.5%;
+  margin-bottom: 24rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+.related__cover {
+  width: 100%;
+  height: 220rpx;
+  display: block;
+}
+.related__body {
+  padding: 14rpx 16rpx 18rpx;
+}
+.related__name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.related__tittle {
+  display: block;
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.related__count {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #aaa;
+}
+
+/* ==================== 历史人物弹层 ==================== */
+.human-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 48rpx;
+  box-sizing: border-box;
+}
+.human-modal__card {
+  width: 100%;
+  max-height: 85vh;
+  background-color: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.human-modal__photo {
+  width: 100%;
+  height: 440rpx;
+  flex-shrink: 0;
+  display: block;
+}
+.human-modal__photo--ph {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.human-modal__name {
+  padding: 28rpx 32rpx 0;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #222;
+}
+.human-modal__date {
+  padding: 8rpx 32rpx 0;
+  font-size: 26rpx;
+  color: #888;
+}
+.human-modal__body {
+  padding: 24rpx 32rpx 0;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  overflow-y: auto;
+  flex: 1;
+}
+.human-modal__empty {
+  padding: 40rpx 32rpx;
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+}
+.human-modal__close {
+  margin: 16rpx 32rpx 32rpx;
+  padding: 22rpx 0;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  background: linear-gradient(90deg, #c9a24b, #e0c88f);
+  border-radius: 999rpx;
+  flex-shrink: 0;
+}

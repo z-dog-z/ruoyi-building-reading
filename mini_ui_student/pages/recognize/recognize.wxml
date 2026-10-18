@@ -1,0 +1,32 @@
+<view class="page" style="padding-top:{{statusBarHeight + 88}}rpx">
+
+  <!-- 隐藏的 Canvas 2D -->
+  <canvas
+    type="2d"
+    id="compress"
+    style="position:fixed;left:-9999px;top:-9999px;width:200px;height:300px"
+  ></canvas>
+
+  <!-- 返回按钮：圆形半透明图标 -->
+  <view class="back" bindtap="onBack" style="top:{{statusBarHeight + 20}}rpx">
+    <view class="back__arrow"></view>
+  </view>
+
+  <view class="title">
+    <text class="title__main">拍照识别</text>
+    <text class="title__sub">放大单个建筑或门牌、铜牌拍照</text>
+  </view>
+
+  <view class="preview" wx:if="{{previewPath}}">
+    <image class="preview__img" src="{{previewPath}}" mode="aspectFit" />
+    <view class="preview__hint">(已压缩)</view>
+  </view>
+
+  <view class="placeholder" wx:else bindtap="onPick">
+    <image class="placeholder__icon" src="/images/icons/相机.png" mode="aspectFit" />
+    <text class="placeholder__text">点击拍照或选择图片</text>
+  </view>
+
+  <view class="re-pick" wx:if="{{previewPath}}" bindtap="onPick">换一张</view>
+
+</view>

@@ -1,0 +1,32 @@
+.page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 24rpx 20rpx 60rpx;
+  box-sizing: border-box;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.card {
+  width: 48.5%;
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+.card__cover { width: 100%; height: 220rpx; display: block; }
+.card__body { padding: 14rpx 16rpx 16rpx; }
+.card__name {
+  display: block; font-size: 28rpx; font-weight: 500; color: #222;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card__tittle {
+  display: block; margin-top: 4rpx; font-size: 22rpx; color: #888;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card__count { margin-top: 8rpx; font-size: 22rpx; color: #aaa; }
+.end { text-align: center; font-size: 24rpx; color: #bbb; margin-top: 40rpx; }

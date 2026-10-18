@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelBackstageMapper">
+
+    <!--根据景点分类和景点名称搜索景点-->
+    <select id="selectTravelModuleDetailByName"  resultType="com.pz.travel.domain.TravelModuleDetail">
+        select distinct a.* from travel_module_detail AS a left JOIN travel_joint AS b ON a.id=b.scenic_id
+        where  1=1  and  deleted !=1
+            <if test="subClassficationId !=null"> and  b.classification_id = #{subClassficationId}</if>
+            <if test="name !=null and name !=''">and a.name like concat('%', #{name}, '%')</if>
+            <if test="spotScenicId !=null">and a.id = #{spotScenicId}</if>
+            <if test="isVr !=null">and a.is_vr = #{isVr}</if>
+            <if test="moduleId != null">and a.module_id = #{moduleId}</if>
+            <if test="remarks !=null and remarks!=''"> and  a.remarks  like concat('%', #{remarks}, '%') </if>
+        order by inx
+    </select>
+
+    <!--新增景点-->
+    <insert id="insertTravelModuleDetail" parameterType="com.pz.travel.domain.TravelModuleDetail">
+        insert into travel_module_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="moduleId != null">module_id,</if>
+            <if test="subClassificationId != null">sub_classification_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="pictureUrl != null">picture_url,</if>
+            <if test="videoUrl != null">video_url,</if>
+            <if test="audioUrl != null">audio_url,</if>
+            <if test="contentLink!=null and contentLink!=''">content_link,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="introduction != null">introduction,</if>
+            <if test="vrId != null">vr_id,</if>
+            <if test="isVr != null">is_vr,</if>
+            <if test="address != null and address!=''">address,</if>
+            <if test="inx!=null and inx!=''">inx,</if>
+            <if test="backgroundCover!=null">background_cover,</if>
+            <if test="videoCover!=null">video_cover,</if>
+            <if test="remarks!=null and remarks!=''">remarks,</if>
+            <if test="latitude!=null and latitude!=''">latitude,</if>
+            <if test="longitude!=null and longitude!=''">longitude,</if>
+            <if test="human != null">human,</if>
+            <if test="englishName != null and englishName != ''">english_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="moduleId != null">#{moduleId},</if>
+            <if test="subClassificationId != null">#{subClassificationId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="pictureUrl != null">#{pictureUrl},</if>
+            <if test="videoUrl != null">#{videoUrl},</if>
+            <if test="audioUrl != null">#{audioUrl},</if>
+            <if test="contentLink!=null and contentLink!=''">#{contentLink},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="introduction != null and introduction !=''">#{introduction},</if>
+            <if test="vrId != null">#{vrId},</if>
+            <if test="isVr !=null">#{isVr},</if>
+            <if test="address!=null and address!=''">#{address},</if>
+            <if test="inx!=null and inx!=''">#{inx},</if>
+            <if test="backgroundCover!=null">#{backgroundCover},</if>
+            <if test="videoCover!=null">#{videoCover},</if>
+            <if test="remarks!=null and remarks!=''">#{remarks},</if>
+            <if test="latitude!=null and latitude!=''">#{latitude},</if>
+            <if test="longitude!=null and longitude!=''">#{longitude},</if>
+            <if test="human != null">#{human},</if>
+            <if test="englishName != null and englishName != ''">#{englishName},</if>
+        </trim>
+    </insert>
+
+    <!--修改景点信息-->
+    <update id="updateTravelModuleDetail" parameterType="com.pz.travel.domain.TravelModuleDetail">
+        update travel_module_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="moduleId != null">module_id = #{moduleId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="pictureUrl != null">picture_url = #{pictureUrl},</if>
+            <if test="videoUrl != null">video_url = #{videoUrl},</if>
+
+            <if test="audioUrl != null">audio_url = #{audioUrl},</if>
+            <if test="audioUrl == null or audioUrl == ''">audio_url = null,</if>
+
+            <if test="contentLink!=null and contentLink!=''">content_link = #{contentLink},</if>
+            <if test="contentLink == null or contentLink == ''">content_link = null,</if>
+
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="content == null or content == ''">content = null,</if>
+
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+
+            <if test="introduction != null and introduction !=''">introduction = #{introduction},</if>
+            <if test="introduction == null or introduction == ''">introduction = null,</if>
+
+            <if test="vrId != null">vr_id = #{vrId},</if>
+            <if test="vrId == null or vrId == ''">vr_id = null,</if>
+
+            <if test="isVr !=null">is_vr = #{isVr},</if>
+
+            <if test="address!=null and address!=''">address = #{address},</if>
+            <if test="address == null or address == ''">address = null,</if>
+
+            <if test="inx!=null">inx = #{inx},</if>
+            <if test="inx == null or inx == ''">inx = null,</if>
+
+            <if test="backgroundCover!=null">background_cover= #{backgroundCover},</if>
+            <if test="backgroundCover == null or backgroundCover == ''">background_cover = null,</if>
+
+            <if test="videoCover!=null">video_cover= #{videoCover},</if>
+            <if test="videoCover == null or videoCover == ''">video_cover = null,</if>
+
+            <if test="remarks!=null and remarks!=''">remarks= #{remarks},</if>
+            <if test="remarks == null or remarks == ''">remarks = null,</if>
+
+            <if test="latitude!=null and latitude!=''">latitude= #{latitude},</if>
+            <if test="latitude == null or latitude == ''">latitude = null,</if>
+
+            <if test="longitude!=null and longitude!=''">longitude= #{longitude},</if>
+            <if test="longitude == null or longitude == ''">longitude = null,</if>
+
+            <if test="human != null and human != ''">human = #{human},</if>
+            <if test="human == null or human == ''">human = null,</if>
+
+            <if test="englishName != null and englishName != ''">english_name = #{englishName},</if>
+            <if test="englishName == null or englishName == ''">english_name = null,</if>
+
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!--删除景点-->
+    <delete id="deleteTravelModuleDetailById" parameterType="Long">
+      update travel_module_detail set deleted  =1 where   id = #{id}
+    </delete>
+
+
+
+
+    <update id="updateOrderBy" parameterType="java.lang.String">
+
+update travel_module_detail set inx = inx +1 where  inx >=#{inx}
+
+    </update>
+
+
+    <select id="selectTravelModuleDetail"  resultType="com.pz.travel.domain.TravelModuleDetail">
+        select id ,name,longitude  from travel_module_detail
+        where  1=1  and  deleted !=1
+       <if test="name !=null and name !=''">and name like concat('%', #{name}, '%')</if>
+        <if test="blockId !=null and blockId !=''">and block_id  =#{blockId}</if>
+        order by inx
+    </select>
+
+</mapper>

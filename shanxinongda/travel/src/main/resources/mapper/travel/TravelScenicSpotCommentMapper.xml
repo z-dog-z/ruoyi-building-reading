@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelScenicSpotCommentMapper">
+
+    <select id="selectScenicSpotCommentsByScenicspotId" resultType="com.pz.travel.domain.vo.TravelScenicSpotCommentVo">
+        SELECT
+          ssc.`*`,
+          su.nick_name AS comment_user_name
+        FROM travel_scenic_spot_comment ssc
+        LEFT JOIN sys_user su ON ssc.comment_user_id = su.user_id
+        WHERE ssc.scenic_spot_id = #{scenicspotId}
+    </select>
+
+</mapper>

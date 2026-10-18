@@ -1,0 +1,23 @@
+<!-- pages/humanDetail/humanDetail.wxml -->
+<view class="page" wx:if="{{human}}">
+
+  <!-- 顶部人物信息 -->
+  <view class="header">
+    <image wx:if="{{human.photo}}" class="header__photo" src="{{human.photo}}" mode="aspectFill" />
+    <view wx:else class="header__photo header__photo--ph">
+      <view class="ph-icon"></view>
+    </view>
+    <view class="header__info">
+      <view class="header__name">{{human.name}}</view>
+      <view wx:if="{{human.date}}" class="header__date">{{human.date}}</view>
+    </view>
+  </view>
+
+  <!-- 简介白块 -->
+  <view class="card">
+    <view wx:if="{{human.content}}" class="card__body">
+      <rich-text nodes="{{contentHtml}}"></rich-text>
+    </view>
+    <view wx:else class="card__empty">事迹正在补充中…</view>
+  </view>
+</view>

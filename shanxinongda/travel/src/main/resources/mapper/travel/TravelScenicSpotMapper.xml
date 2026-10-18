@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.TravelScenicSpotMapper">
+
+    <select id="getTravelScenicSpotsByRecognitionLibraryIds" resultType="com.pz.travel.domain.TravelModuleDetail">
+        SELECT
+          distinct tmd.*
+        FROM travel_module_detail tmd
+        INNER JOIN travel_recognition_library trl ON trl.module_detail_id = tmd.id
+        where tmd.status = 1 and trl.id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="travelScenicSpotsRandom" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select * from travel_module_detail where status=1
+        <if test="excludeIds !=null and excludeIds.length > 0">
+            and id not in
+            <foreach item="id" collection="excludeIds" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+        order by rand() LIMIT ${count};
+    </select>
+
+    <select id="selectTravelScenicSpotList" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select * from travel_module_detail
+        where 1 = 1
+          and deleted != 1
+          and module_id = 847162
+        <if test="subClassificationId != null and subClassificationId != ''"> and sub_classification_id = #{subClassificationId}</if>
+        <if test="blockId != null and blockId != ''"> and block_id = #{blockId}</if>
+        order by inx
+    </select>
+
+    <select id="travelScenicSpotName" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select * from travel_module_detail     where  deleted !=1  and module_id = 847162
+
+            <if test="name !=null and name !=''"> and (name like concat('%', #{name}, '%') or remarks like concat('%', #{name}, '%')) </if>
+
+    </select>
+
+    <!--通过id获取景点详情-->
+    <select id="travelScenicSpotInformations" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select   id ,name  ,english_name,picture_url,vr_id,status ,longitude from travel_module_detail
+        where  deleted =0 and  id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="travelScenicSpotInformation" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select  * from travel_module_detail
+        where id=#{id}
+    </select>
+
+
+
+    <select id="selectMap" resultType="com.pz.travel.domain.TravelModuleDetail">
+        SELECT
+            id  , longitude , name, picture_url , remarks,english_name
+        FROM
+            travel_module_detail
+    </select>
+
+
+    <select id="selectUserMap" resultType="com.pz.travel.domain.TravelModuleDetail">
+    SELECT * from (SELECT
+                       a.id,
+                       longitude,
+                       NAME,
+                       picture_url,
+                       remarks,
+                       english_name,
+                       b.id clock
+                   FROM
+                       travel_module_detail a
+                           LEFT JOIN clock b ON a.id = b.tour_id and b.user_id = #{userId})a
+             <if test="type!= null and type ==1">    where  clock  is  not  null</if>
+
+    </select>
+
+    <select id="travelScenicSpotIdByVrType" resultType="java.lang.Long">
+        SELECT
+            tmd.id
+        FROM
+            `travel_module_detail` tmd
+        LEFT JOIN travel_vr tv ON tv.id = tmd.vr_id
+        WHERE
+          tv.identify = #{vrType}
+    </select>
+
+    <!--通过景点id获取VR表中的identify字段-->
+    <select id="selectIdentify" resultType="java.lang.String">
+        SELECT identify FROM `travel_vr` a INNER JOIN travel_module_detail b
+        WHERE a.id=b.vr_id AND b.id=#{id};
+    </select>
+
+    <!--小程序获取活动详情-->
+    <select id="getActivityList" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select * from travel_module_detail AS a INNER JOIN travel_module AS b
+                ON a.module_id=b.id AND b.name='活动'
+        where a.deleted != 1
+        ORDER BY  a.create_time DESC
+    </select>
+
+    <!--小程序获取VR列表-->
+    <select id="getVrList" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select id,name,picture_url,vr_id from travel_module_detail where is_vr=1 order by id
+    </select>
+
+    <!--小程序获取浏览量和点赞量-->
+    <select id="getPageviewsAndLikes" parameterType="Long" resultType="com.pz.travel.domain.TravelModuleDetail">
+        select pageviews,likes from travel_module_detail where id=#{id}
+    </select>
+
+    <!--更新浏览量-->
+    <update id="updatePageViews" parameterType="Long">
+        update travel_module_detail set pageviews = pageviews+1
+        where id = #{id}
+    </update>
+
+    <!--增加点赞-->
+    <update id="updateLikes" parameterType="Long">
+        update travel_module_detail set
+        likes = likes+1
+        where id = #{id}
+    </update>
+
+    <!--取消点赞-->
+    <update id="cancelLikes" parameterType="Long">
+        update travel_module_detail set
+        likes=likes-1
+        where id=#{id}
+    </update>
+
+    <select id="getTravelModuleDetailByRecognitionLibraryId" resultType="com.pz.travel.domain.TravelModuleDetail">
+        SELECT
+          tmd.*
+        FROM travel_module_detail tmd
+        INNER JOIN travel_recognition_library trl ON trl.module_detail_id = tmd.id
+        where trl.id = #{recognitionLibraryId}
+    </select>
+    <select id="getDataLastTime" resultType="java.util.Date">
+        select update_time from travel_module_detail ORDER BY update_time desc limit 1
+    </select>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pz.travel.mapper.WxDataMapper">
+
+    <select id="SelectScenicAll" resultType="com.pz.travel.domain.WxData">
+
+SELECT
+	count(*) value,
+	b. name
+FROM
+	travel_scenic_view a,
+	travel_module_detail b
+WHERE
+	a.scenic_id = b.id
+GROUP BY
+	b.`name`
+
+    </select>
+
+    <select id="SelectScenicYes" resultType="com.pz.travel.domain.WxData">
+
+SELECT
+	count(*) value,
+	b. name
+FROM
+	travel_scenic_view a,
+	travel_module_detail b
+WHERE
+	a.scenic_id = b.id
+	AND DATEDIFF(a.dates,NOW())=-1
+GROUP BY
+	b.`name`
+
+    </select>
+
+
+	<select id="SelectView" resultType="com.pz.travel.domain.WxData">
+
+		SELECT
+		CASE HOUR (time)
+		WHEN  10>HOUR (time) THEN
+		CONCAT('0', HOUR (time),':00')
+		ELSE
+		CONCAT( HOUR (time),':00')
+		END name,
+		count(*) value
+		FROM
+		travel_views
+		WHERE
+		DATE_FORMAT(time, "%Y-%m-%d") = DATE_FORMAT(now(), "%Y-%m-%d")
+		GROUP BY
+		CASE HOUR (time)
+		WHEN 10>HOUR (time) THEN
+		CONCAT('0', HOUR (time),':00')
+		ELSE
+		CONCAT( HOUR (time),':00')
+		END
+	</select>
+
+    <select id="selectBaseStatistics" resultType="com.pz.travel.domain.vo.TravelStatisticsBaseVo">
+        select
+            (select count(*) from travel_module_detail where deleted != 1) as buildingCount,
+            (select count(*) from travel_module_detail where deleted != 1 and is_vr = 1) as vrBuildingCount,
+            (select count(distinct user_id) from travel_views where user_id is not null) as visitorCount,
+            (select count(*) from travel_scenic_view where event_type = 1 or event_type is null) as scenicViewCount,
+            (select count(*) from travel_scenic_view where event_type = 2) as recognitionCount,
+            (select count(*) from travel_scenic_view where event_type = 3) as vrViewCount,
+            (select ifnull(sum(likes), 0) from travel_module_detail where deleted != 1) as likeCount
+    </select>
+
+    <select id="selectRecognitionRank" resultType="com.pz.travel.domain.WxData">
+        select
+            count(*) as value,
+            ifnull(b.name, concat('未知#', a.scenic_id)) as name
+        from travel_scenic_view a
+        left join travel_module_detail b on a.scenic_id = b.id and b.deleted != 1
+        where a.event_type = 2
+        group by a.scenic_id, b.name
+        order by value desc
+        limit #{limit}
+    </select>
+
+    <select id="selectVrRank" resultType="com.pz.travel.domain.WxData">
+        select
+            count(*) as value,
+            ifnull(b.name, concat('未知#', a.scenic_id)) as name
+        from travel_scenic_view a
+        left join travel_module_detail b on a.scenic_id = b.id and b.deleted != 1
+        where a.event_type = 3
+        group by a.scenic_id, b.name
+        order by value desc
+        limit #{limit}
+    </select>
+
+    <select id="selectHotRank" resultType="com.pz.travel.domain.WxData">
+        select
+            count(*) as value,
+            ifnull(b.name, concat('未知#', a.scenic_id)) as name
+        from travel_scenic_view a
+        left join travel_module_detail b on a.scenic_id = b.id and b.deleted != 1
+        where a.event_type = 1 or a.event_type is null
+        group by a.scenic_id, b.name
+        order by value desc
+        limit #{limit}
+    </select>
+
+    <select id="selectScenicSourceStats" resultType="com.pz.travel.domain.WxData">
+        select
+            ifnull(nullif(source, ''), 'unknown') as name,
+            count(*) as value
+        from travel_scenic_view
+        <where>
+            <if test="eventType != null">
+                event_type = #{eventType}
+            </if>
+        </where>
+        group by ifnull(nullif(source, ''), 'unknown')
+        order by value desc
+    </select>
+
+    <select id="selectViewSourceStats" resultType="com.pz.travel.domain.WxData">
+        select
+            ifnull(nullif(source, ''), 'unknown') as name,
+            count(*) as value
+        from travel_views
+        group by ifnull(nullif(source, ''), 'unknown')
+        order by value desc
+    </select>
+</mapper>

@@ -1,0 +1,33 @@
+<view class="page">
+
+  <!-- 标题 -->
+  <view class="title">识别结果推荐</view>
+
+  <!-- 大卡推荐 -->
+  <view class="featured" wx:if="{{featured}}" bindtap="onFeaturedTap">
+    <image class="featured__img" src="{{featured.pictureUrl}}" mode="aspectFill" />
+    <view class="featured__name">{{featured.name}}</view>
+  </view>
+
+  <!-- 相似景点 -->
+  <view class="section" wx:if="{{similars.length}}">
+    <view class="section__title">相似景点</view>
+    <view class="similars">
+      <view
+        class="similar"
+        wx:for="{{similars}}" wx:key="id"
+        data-id="{{item.id}}" bindtap="onSimilarTap"
+      >
+        <image class="similar__img" src="{{item.pictureUrl}}" mode="aspectFill" />
+        <text class="similar__name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 重新识别 -->
+  <view class="again" bindtap="onAgain">
+    <image class="again__icon" src="/images/icons/相机.png" />
+    <text class="again__text">重新识别</text>
+  </view>
+
+</view>

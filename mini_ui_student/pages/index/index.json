@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "bg": "/components/bg/bg"
+  },
+  "navigationStyle": "custom"
+}
